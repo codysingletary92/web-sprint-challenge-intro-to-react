@@ -3,18 +3,22 @@ import Character from './Character.js'
 import axios from 'axios'
 
 
+
 const Characters = props => {
 
-const {chars, setChars} = useState([])
+const [chars, setChars] = useState([])
+
 
 axios.get('https://swapi.py4e.com/api/people')
     .then( result => {
       const {data} = result;
+      let charList = [];
         let i;
 
         function get(resultData) {
-            setChars('asdasd')
-            console.log(chars)   
+            // console.log(resultData)
+            charList.push(resultData)
+           setChars(['hello'])
         }
 
         for (i=1; i <= data.count ;i++){
@@ -22,11 +26,12 @@ axios.get('https://swapi.py4e.com/api/people')
                 .then(result => get(result.data))
                 .catch(err => console.log(err))
             //console.log(characterList)
+            
         }
+        
+        
     })
     .catch(err => console.log(err)) ;
-
-
 
 // const list = props.data.results;
 // console.log(list.map( obj => obj))
