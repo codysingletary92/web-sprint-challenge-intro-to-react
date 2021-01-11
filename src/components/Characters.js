@@ -1,29 +1,22 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Character from './Character.js'
 import axios from 'axios'
 
 
 
 const Characters = props => {
-
+let charList = [];
 const [chars, setChars] = useState([])
 
-
-axios.get('https://swapi.py4e.com/api/people')
+useEffect(() => {axios.get('https://swapi.py4e.com/api/people')
     .then( result => {
       const {data} = result;
-      let charList = [];
+        console.log(data)
+
         let i;
-
-        function get(resultData) {
-            // console.log(resultData)
-            charList.push(resultData)
-           setChars(['hello'])
-        }
-
         for (i=1; i <= data.count ;i++){
             axios.get(`https://swapi.py4e.com/api/people/${i}/`)
-                .then(result => get(result.data))
+                .then(result => setChars([...chars, result.data]))
                 .catch(err => console.log(err))
             //console.log(characterList)
             
@@ -31,7 +24,11 @@ axios.get('https://swapi.py4e.com/api/people')
         
         
     })
-    .catch(err => console.log(err)) ;
+    .catch(err => console.log(err))
+},[])
+
+
+    console.log(charList.length)
 
 // const list = props.data.results;
 // console.log(list.map( obj => obj))
