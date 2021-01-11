@@ -12,7 +12,7 @@ const App = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Characters data={dummyData}/>
+    <Characters />
   );
 }
 
